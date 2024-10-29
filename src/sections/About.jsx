@@ -1,18 +1,32 @@
 import { useState } from 'react';
 import Globe from 'react-globe.gl';
-
 import Button from '../components/Button.jsx';
 
 const About = () => {
   const [hasCopied, setHasCopied] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(' hsgbxrssm@gmail.com');
+    navigator.clipboard.writeText('hsgbxrssm@gmail.com');
     setHasCopied(true);
 
     setTimeout(() => {
       setHasCopied(false);
     }, 2000);
+  };
+
+  // Array of images for the slider
+  const images = [
+    "assets/frontend.png",
+    "assets/backend.png",
+    "assets/courses.png",
+    "assets/others.png",
+    // Add more images here if needed
+  ];
+
+  // Function to handle the next image
+  const handleNextImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
   return (
@@ -25,19 +39,31 @@ const About = () => {
             <div>
               <p className="grid-headtext">Hi, I’m Himanshu Singh</p>
               <p className="grid-subtext">
-              With 2 years of experience, I have developed strong skills 
-              in both frontend and backend development, building websites that are interactive and work well on all devices.
+                With 2 years of experience, I have developed strong skills
+                in both frontend and backend development, building websites that are interactive and work well on all devices.
               </p>
             </div>
           </div>
         </div>
 
+        {/* Image Slider Section */}
         <div className="col-span-1 xl:row-span-3">
-          <div className="grid-container">
-            <img src="assets/grid2.png" alt="grid-2" className="w-full sm:h-[276px] h-fit object-contain" />
+          <div className="grid-container relative">
+            {/* Current Slide Image */}
+            <img src={images[currentImageIndex]} alt={`slide-${currentImageIndex}`} className="w-full sm:h-[276px] h-fit object-contain" />
+
+            {/* Right Arrow Button */}
+            <button
+              onClick={handleNextImage}
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-black text-white p-2 rounded-full"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
 
             <div>
-              <p className="grid-headtext">Tech Stack</p>
+              <p className="grid-headtext">My Skills</p>
               <p className="grid-subtext">
                 I specialize in a variety of languages, frameworks, and tools that allow me to build robust and scalable
                 applications
@@ -64,14 +90,13 @@ const About = () => {
             <div>
               <p className="grid-headtext">I’m very flexible with time zone communications & locations</p>
               <p className="grid-subtext">I&apos;m based in Nagpur, India, and open to remote work worldwide.</p>
-              <a 
-                 href="mailto:hsgbxrssm@gmail.com" 
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="flex items-center justify-center w-full h-full"
+              <a
+                href="mailto:hsgbxrssm@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-full h-full"
               >
-
-              <Button name="Contact Me" isBeam containerClass="w-full mt-10" />
+                <Button name="Contact Me" isBeam containerClass="w-full mt-10" />
               </a>
             </div>
           </div>
@@ -84,8 +109,8 @@ const About = () => {
             <div>
               <p className="grid-headtext">My Passion for Coding</p>
               <p className="grid-subtext">
-              I thrive on tackling challenges and creating solutions through programming. Coding is more 
-              than just a job for me—it's a genuine passion. I'm constantly eager to learn new technologies and improve my skills.
+                I thrive on tackling challenges and creating solutions through programming. Coding is more
+                than just a job for me—it's a genuine passion. I'm constantly eager to learn new technologies and improve my skills.
               </p>
             </div>
           </div>
